@@ -28,7 +28,7 @@ class NoteRepositories {
       values: [id],
     };
 
-    const result = await this.pool.query(query);
+    const result = await this._poolpool.query(query);
 
     return result.rows[0];
   }
@@ -40,7 +40,7 @@ class NoteRepositories {
       values: [title, body, tags, updatedAt, id],
     };
 
-    const result = await this.pool.query(query);
+    const result = await this._pool.query(query);
 
     return result.rows[0];
   }
@@ -50,7 +50,7 @@ class NoteRepositories {
       values: [id],
     };
 
-    const result = await this.pool.query(query);
+    const result = await this._pool.query(query);
 
     return result.rows[0].id;
   }
