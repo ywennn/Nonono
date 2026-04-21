@@ -28,7 +28,7 @@ class NoteRepositories {
       values: [id],
     };
 
-    const result = await this._poolpool.query(query);
+    const result = await this._pool.query(query);
 
     return result.rows[0];
   }
