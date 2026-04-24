@@ -17,8 +17,12 @@ class NoteRepositories {
     const result = await this._pool.query(query);
     return result.rows[0];
   }
-  async getNotes() {
-    const result = await this._pool.query('SELECT * FROM notes');
+  async getNotes(owner) {
+    const query = {
+      text: 'SELECT * FROM notes WHERE owner = $1',
+      values: [owner],
+    };
+    const result = await this.pool.query(query);
     return result.rows;
   }
 
@@ -53,6 +57,21 @@ class NoteRepositories {
     const result = await this._pool.query(query);
 
     return result.rows[0].id;
+  }
+  async verifyNoteOwner(id, owner) {
+    const query = {
+      text: 'SELECT * FROM notes WHERE id = $1',
+      values: [id],
+    };
+    const result = await this._pool.query(query);
+    if (!result.rows.length) {
+      return null;
+    }
+    const note = result.rows[0];
+    if (note.owner !== owner) {
+      return null;
+    }
+    return result.rows[0];
   }
 }
 
